@@ -8,9 +8,10 @@ class LogisticRegression:
         '''
         self.vars = [Variable(name=i) for i in range(1,var_len+1)]
         self.var_len = var_len
-        self.coeffs = [Variable(name=-i) for i in range(1,var_len+1)]
-        self.coeffs_val = {-i : np.random.uniform(-1, 1) for i in range(1,var_len+1)}
-        self.linear = sum(coeff*var for coeff, var in zip(self.coeffs, self.vars))
+        self.coeffs = [Variable(name=-i) for i in range(0,var_len+1)]
+        self.coeffs_val = {-i : np.random.uniform(-1, 1) for i in range(0,var_len+1)}
+        # 0 is the bias term
+        self.linear = sum(coeff*var for coeff, var in zip(self.coeffs[1:], self.vars)) + self.coeffs[0]
         self.pred = 1/(1+math.e**(0-self.linear))
 
     def fit(self, Xs, ys, lr=0.01):
